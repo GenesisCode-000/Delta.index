@@ -1,234 +1,158 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta Executor | Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --system-blue: #0A84FF;
-        --system-green: #32D74B;
-        --bg-color: #0d0d0d;
-        --card-bg: #1A1A1A;
-        --text-main: #EAEAEA;
-        --text-secondary: #AAAAAA;
-        --border-color: #333333;
-      }
+        :root {
+            --bg: #000;
+            --side: #080808;
+            --accent: #3ddc84;
+            --accent-blue: #007aff;
+            --border: #1a1a1a;
+            --text: #fff;
+        }
 
-      body { 
-        font-family: 'Inter', -apple-system, sans-serif; 
-        background-color: var(--bg-color); 
-        color: var(--text-main); 
-        margin: 0; 
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; background: var(--bg); color: var(--text); 
+            font-family: 'Space Grotesk', sans-serif; height: 100vh; overflow: hidden;
+        }
 
-      #particles-js {
-        position: fixed;
-        width: 100%; height: 100%;
-        top: 0; left: 0;
-        z-index: 0;
-      }
+        .site-frame { display: flex; height: 100vh; }
 
-      .container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        position: relative;
-        z-index: 1; 
-      }
+        /* SIDEBAR */
+        .sidebar { 
+            width: 260px; background: var(--side); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; padding: 40px 20px;
+        }
 
-      header { text-align: center; margin-bottom: 30px; }
+        .brand { display: flex; align-items: center; gap: 15px; margin-bottom: 60px; font-weight: 700; font-size: 20px; }
+        .logo-box { background: var(--accent-blue); padding: 5px 12px; border-radius: 4px; color: #000; }
 
-      .verified-badge {
-        display: inline-flex;
-        align-items: center;
-        background: rgba(10, 132, 255, 0.1);
-        color: var(--system-blue);
-        padding: 8px 18px;
-        border-radius: 25px;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        border: 1px solid rgba(10, 132, 255, 0.3);
-      }
+        .side-tabs { display: flex; flex-direction: column; gap: 10px; }
+        .side-link {
+            background: transparent; border: 1px solid transparent; color: #444;
+            text-align: left; padding: 12px; cursor: pointer; font-weight: 500;
+            font-family: inherit; transition: 0.3s;
+        }
+        .side-link.active { color: var(--text); border-left: 2px solid var(--accent-blue); background: rgba(255,255,255,0.02); }
 
-      h1 { font-size: 38px; font-weight: 700; margin: 0; letter-spacing: -1px; }
+        /* MAIN CONTENT */
+        .viewport { flex: 1; overflow-y: auto; padding: 60px; }
+        .panel { display: none; }
+        .panel.active { display: block; animation: fadeIn 0.5s ease; }
 
-      /* Système d'onglets */
-      .tabs {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 30px;
-      }
+        .panel-header { 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 40px;
+        }
 
-      .tab-btn {
-        flex: 1;
-        padding: 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        background: var(--card-bg);
-        color: var(--text-secondary);
-        cursor: pointer;
-        font-weight: 600;
-        transition: 0.3s;
-      }
+        h2 { font-size: 14px; letter-spacing: 2px; color: #444; margin: 0; }
 
-      .tab-btn.active {
-        background: var(--system-blue);
-        color: white;
-        border-color: var(--system-blue);
-      }
+        .download-trigger {
+            background: var(--accent); color: #000; padding: 12px 24px;
+            text-decoration: none; font-weight: 700; border-radius: 4px; font-size: 12px;
+        }
+        .download-trigger.blue { background: var(--accent-blue); color: #fff; }
 
-      .tab-content { display: none; }
-      .tab-content.active { display: block; }
+        /* IMAGE BLOCKS */
+        .image-block { background: #050505; border: 1px solid var(--border); padding: 20px; margin-bottom: 30px; }
+        .block-label { font-size: 10px; color: var(--accent-blue); margin-bottom: 15px; font-weight: 700; }
+        
+        .img-container { position: relative; overflow: hidden; border-radius: 4px; }
+        .img-container img { width: 100%; display: block; }
 
-      .step-card {
-        background: var(--card-bg);
-        border-radius: 20px;
-        padding: 25px;
-        margin-bottom: 20px;
-        border: 1px solid var(--border-color);
-      }
+        /* EFFET SCANNER */
+        .scanner {
+            position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 122, 255, 0.2), transparent);
+            animation: scan 4s linear infinite;
+        }
 
-      .step-header { display: flex; align-items: center; margin-bottom: 15px; }
-      .step-number {
-        color: var(--system-blue);
-        font-weight: 700;
-        background: rgba(10, 132, 255, 0.1);
-        width: 30px; height: 30px;
-        display: flex; align-items: center; justify-content: center;
-        border-radius: 8px; margin-right: 12px;
-      }
+        @keyframes scan { 0% { top: -100%; } 100% { top: 100%; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 
-      .step-title { font-weight: 600; font-size: 18px; }
-      
-      .step-img {
-        width: 100%;
-        border-radius: 10px;
-        margin-top: 15px;
-        border: 1px solid #444;
-      }
+        /* CONTACT */
+        .support-wrap { display: flex; gap: 20px; }
+        .contact-box { background: var(--side); border: 1px solid var(--border); padding: 30px; flex: 1; border-radius: 8px; }
+        .contact-box small { color: #444; font-weight: 700; }
+        .contact-box h3 { margin: 10px 0 0; color: var(--accent-blue); }
 
-      .btn-action {
-        display: block;
-        background: var(--system-blue);
-        color: white;
-        text-align: center;
-        padding: 15px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 15px;
-      }
-
-      .contact-card {
-        border: 1px dashed var(--system-blue);
-        background: rgba(10, 132, 255, 0.05);
-      }
-
-      .footer-note {
-        text-align: center;
-        font-size: 12px;
-        color: var(--text-secondary);
-        margin-top: 40px;
-        opacity: 0.6;
-      }
+        .status-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); display: inline-block; margin-right: 10px; }
+        .system-status { margin-top: auto; display: flex; align-items: center; font-size: 10px; color: #333; font-weight: 700; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
-    <div id="particles-js"></div>
+<div class="site-frame">
+    <aside class="sidebar">
+        <div class="brand"><div class="logo-box">Δ</div><span>DELTA</span></div>
+        <nav class="side-tabs">
+            <button class="side-link active" onclick="switchTab('android', event)">ANDROID</button>
+            <button class="side-link" onclick="switchTab('ios', event)">IOS</button>
+            <button class="side-link" onclick="switchTab('support', event)">SUPPORT</button>
+        </nav>
+        <div class="system-status"><div class="status-dot"></div><span>SYSTEM ONLINE</span></div>
+    </aside>
 
-    <div class="container">
-      <header>
-        <div class="verified-badge">✓ Système Vérifié 2026</div>
-        <h1>Delta Executor</h1>
-      </header>
+    <main class="viewport">
+        <section id="android" class="panel active">
+            <div class="panel-header">
+                <h2>INSTALLATION_ANDROID</h2>
+                <a href="https://deltaexploits.gg/delta-executor-android" class="download-trigger">EXECUTE DOWNLOAD</a>
+            </div>
+            <div class="image-block">
+                <div class="block-label">MODULE_01 // DOWNLOAD_PORTAL</div>
+                <div class="img-container">
+                    <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166160201486376/image.png?ex=697bc124&is=697a6fa4&hm=393c302840c7b7dfea13e91655d080729d4fa3ba0833bea3c66b586e7a86dfe7&=&format=webp&quality=lossless&width=1872&height=720">
+                    <div class="scanner"></div>
+                </div>
+            </div>
+            <div class="image-block">
+                <div class="block-label">MODULE_02 // BYPASS_SECURITY</div>
+                <p style="color: #888; font-size: 13px; margin-bottom: 15px;">Alerte fichier dangereux : cliquez sur <span style="color:var(--accent); font-weight:bold;">Télécharger quand même</span></p>
+                <div class="img-container">
+                    <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166387151208599/image.png?ex=697bc15a&is=697a6fda&hm=a9e2e5efe02f2228319d9efa98a1f17640eb138183d4eacf7a0067879ef329c6&=&format=webp&quality=lossless">
+                    <div class="scanner"></div>
+                </div>
+            </div>
+        </section>
 
-      <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('android')">Android</button>
-        <button class="tab-btn" onclick="openTab('ios')">iOS (iPhone)</button>
-      </div>
+        <section id="ios" class="panel">
+            <div class="panel-header">
+                <h2>INSTALLATION_IOS</h2>
+                <a href="#" class="download-trigger blue">DOWNLOAD_IPA</a>
+            </div>
+            <div class="image-block">
+                <div class="block-label">MODULE_01 // SOURCE_IPA</div>
+                <div class="img-container">
+                    <img src="https://media.discordapp.net/attachments/1386423141697585254/1466170020743876734/image.png?ex=697bc4bd&is=697a733d&hm=a5f4ead0cb2b2f03ba2133bd0ad11cce291834c34219864e962b7117e571ce79&=&format=webp&quality=lossless">
+                    <div class="scanner"></div>
+                </div>
+            </div>
+        </section>
 
-      <div id="android" class="tab-content active">
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">01</div>
-            <div class="step-title">Téléchargement Android</div>
-          </div>
-          <p>Cliquez sur le bouton ci-dessous pour lancer le téléchargement de l'APK.</p>
-          <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166160201486376/image.png?ex=697bc124&is=697a6fa4&hm=393c302840c7b7dfea13e91655d080729d4fa3ba0833bea3c66b586e7a86dfe7&=&format=webp&quality=lossless&width=1872&height=720" class="step-img">
-          <a href="https://deltaexploits.gg/delta-executor-android" class="btn-action" style="background:#3DDC84; color:black;">Download For Android</a>
-        </div>
+        <section id="support" class="panel">
+            <div class="panel-header"><h2>SUPPORT_CHANNELS</h2></div>
+            <div class="support-wrap">
+                <div class="contact-box"><small>DISCORD</small><h3>PhotoGrapheCanon</h3></div>
+                <div class="contact-box"><small>INSTAGRAM</small><h3>developer_345</h3></div>
+            </div>
+        </section>
+    </main>
+</div>
 
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">02</div>
-            <div class="step-title">Installation</div>
-          </div>
-          <p>Attendez quelques secondes. Si votre téléphone affiche une alerte, cliquez sur <b>"Télécharger quand même"</b>.</p>
-          <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166387151208599/image.png?ex=697bc15a&is=697a6fda&hm=a9e2e5efe02f2228319d9efa98a1f17640eb138183d4eacf7a0067879ef329c6&=&format=webp&quality=lossless" class="step-img">
-        </div>
-      </div>
+<script>
+    function switchTab(tabId, event) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
 
-      <div id="ios" class="tab-content">
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">01</div>
-            <div class="step-title">Téléchargement IPA</div>
-          </div>
-          <p>Sélectionnez l'option <b>iOS</b> sur le portail et téléchargez le fichier IPA.</p>
-          <a href="https://deltaexploits.gg/delta-executor-android" class="btn-action">Accéder au portail iOS</a>
-        </div>
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">02</div>
-            <div class="step-title">Gestion de l'appareil</div>
-          </div>
-          <p>Allez dans <b>Réglages > Général > VPN et gestion de l'appareil</b> et faites confiance au profil Delta.</p>
-        </div>
-      </div>
-
-      <div class="step-card contact-card">
-        <div class="step-header">
-          <div class="step-title">🆘 Besoin d'aide ? Contacte-moi</div>
-        </div>
-        <p style="margin: 5px 0;">🎮 Discord : <b>valcren_23</b></p>
-        <p style="margin: 5px 0;">📸 Instagram : <b>developer_345</b></p>
-      </div>
-
-      <div class="footer-note">
-        Dernière mise à jour : Janvier 2026.
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-      // Script pour les onglets
-      function openTab(tabName) {
-        var i, tabContent, tabBtn;
-        tabContent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabContent.length; i++) { tabContent[i].classList.remove("active"); }
-        tabBtn = document.getElementsByClassName("tab-btn");
-        for (i = 0; i < tabBtn.length; i++) { tabBtn[i].classList.remove("active"); }
-        document.getElementById(tabName).classList.add("active");
-        event.currentTarget.classList.add("active");
-      }
-
-      // Configuration Particules
-      particlesJS('particles-js', {
-        "particles": {
-          "number": { "value": 50 },
-          "color": { "value": "#aaaaaa" },
-          "line_linked": { "enable": true, "distance": 150, "color": "#888888", "opacity": 0.4, "width": 1 },
-          "move": { "enable": true, "speed": 2 }
-        },
-        "interactivity": {
-          "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }
-        },
-        "retina_detect": true
-      });
-    </script>
-  </body>
+</body>
 </html>
