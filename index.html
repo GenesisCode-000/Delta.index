@@ -6,7 +6,8 @@
     <style>
       :root {
         --system-blue: #0A84FF;
-        --bg-color: #0d0d0d; /* Un noir très très légèrement moins pur que le #000 */
+        --system-green: #32D74B;
+        --bg-color: #0d0d0d;
         --card-bg: #1A1A1A;
         --text-main: #EAEAEA;
         --text-secondary: #AAAAAA;
@@ -19,35 +20,25 @@
         color: var(--text-main); 
         margin: 0; 
         line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        position: relative;
-        min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* Conteneur pour les particules en fond */
       #particles-js {
         position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 0; /* Assure que les particules sont derrière le contenu */
-        background-color: var(--bg-color); /* Assure le fond si les particules ne couvrent pas tout */
+        width: 100%; height: 100%;
+        top: 0; left: 0;
+        z-index: 0;
       }
 
       .container {
         max-width: 500px;
         margin: 0 auto;
-        padding: 60px 20px;
-        position: relative; /* Pour que le contenu soit au-dessus des particules */
+        padding: 40px 20px;
+        position: relative;
         z-index: 1; 
       }
 
-      header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
+      header { text-align: center; margin-bottom: 30px; }
 
       .verified-badge {
         display: inline-flex;
@@ -62,66 +53,61 @@
         border: 1px solid rgba(10, 132, 255, 0.3);
       }
 
-      h1 { 
-        font-size: 38px; 
-        font-weight: 700; 
-        margin: 0;
-        letter-spacing: -1px;
+      h1 { font-size: 38px; font-weight: 700; margin: 0; letter-spacing: -1px; }
+
+      /* Système d'onglets */
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
       }
 
-      .subtitle {
+      .tab-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        background: var(--card-bg);
         color: var(--text-secondary);
-        font-size: 17px;
-        margin-top: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
       }
 
-      .step-list {
-        margin-top: 40px;
+      .tab-btn.active {
+        background: var(--system-blue);
+        color: white;
+        border-color: var(--system-blue);
       }
+
+      .tab-content { display: none; }
+      .tab-content.active { display: block; }
 
       .step-card {
         background: var(--card-bg);
         border-radius: 20px;
-        padding: 28px;
+        padding: 25px;
         margin-bottom: 20px;
         border: 1px solid var(--border-color);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Légère ombre pour la profondeur */
       }
 
-      .step-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
+      .step-header { display: flex; align-items: center; margin-bottom: 15px; }
       .step-number {
         color: var(--system-blue);
         font-weight: 700;
-        font-size: 15px;
-        margin-right: 15px;
         background: rgba(10, 132, 255, 0.1);
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px; /* Carré arrondi */
+        width: 30px; height: 30px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px; margin-right: 12px;
       }
 
-      .step-title {
-        font-weight: 600;
-        font-size: 20px;
-        color: var(--text-main);
-      }
-
-      .step-content {
-        color: var(--text-secondary);
-        font-size: 16px;
-      }
-
-      b {
-        color: var(--text-main);
-        font-weight: 600;
+      .step-title { font-weight: 600; font-size: 18px; }
+      
+      .step-img {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 15px;
+        border: 1px solid #444;
       }
 
       .btn-action {
@@ -129,31 +115,24 @@
         background: var(--system-blue);
         color: white;
         text-align: center;
-        padding: 18px;
-        border-radius: 16px;
+        padding: 15px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
-        margin-top: 25px;
-        font-size: 17px;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        margin-top: 15px;
       }
 
-      .btn-action:hover {
-        opacity: 0.9;
-      }
-
-      .btn-action:active {
-        transform: scale(0.98);
+      .contact-card {
+        border: 1px dashed var(--system-blue);
+        background: rgba(10, 132, 255, 0.05);
       }
 
       .footer-note {
         text-align: center;
-        padding: 25px;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--text-secondary);
-        margin-top: 50px;
-        border-top: 1px solid var(--border-color);
-        opacity: 0.7;
+        margin-top: 40px;
+        opacity: 0.6;
       }
     </style>
   </head>
@@ -165,167 +144,91 @@
       <header>
         <div class="verified-badge">✓ Système Vérifié 2026</div>
         <h1>Delta Executor</h1>
-        <p class="subtitle">Protocole d'installation pour iOS</p>
       </header>
 
-      <div class="step-list">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('android')">Android</button>
+        <button class="tab-btn" onclick="openTab('ios')">iOS (iPhone)</button>
+      </div>
+
+      <div id="android" class="tab-content active">
         <div class="step-card">
           <div class="step-header">
             <div class="step-number">01</div>
-            <div class="step-title">Téléchargement</div>
+            <div class="step-title">Téléchargement Android</div>
           </div>
-          <div class="step-content">
-            Accédez à la plateforme officielle. Sur la page, sélectionnez l'option <b>iOS</b>, puis initiez le <b>Download IPA</b>.
-            <a href="https://deltaexploits.gg/delta-executor-android" class="btn-action" target="_blank">Accéder au portail officiel</a>
-          </div>
+          <p>Cliquez sur le bouton ci-dessous pour lancer le téléchargement de l'APK.</p>
+          <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166160201486376/image.png?ex=697bc124&is=697a6fa4&hm=393c302840c7b7dfea13e91655d080729d4fa3ba0833bea3c66b586e7a86dfe7&=&format=webp&quality=lossless&width=1872&height=720" class="step-img">
+          <a href="https://deltaexploits.gg/delta-executor-android" class="btn-action" style="background:#3DDC84; color:black;">Download For Android</a>
         </div>
 
         <div class="step-card">
           <div class="step-header">
             <div class="step-number">02</div>
-            <div class="step-title">Paramètres système</div>
+            <div class="step-title">Installation</div>
           </div>
-          <div class="step-content">
-            Après le téléchargement, ouvrez l'application <b>Réglages</b> sur votre appareil iOS, puis naviguez vers <b>Général</b>.
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">03</div>
-            <div class="step-title">Gestion de l'appareil</div>
-          </div>
-          <div class="step-content">
-            Localisez et sélectionnez <b>VPN et gestion de l'appareil</b>. Vous y trouverez une nouvelle entrée correspondant à <b>Delta</b>.
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-header">
-            <div class="step-number">04</div>
-            <div class="step-title">Validation et redémarrage</div>
-          </div>
-          <div class="step-content">
-            Appuyez sur le profil, puis confirmez en choisissant <b>Faire confiance</b>. Si l'appareil le demande, autorisez le redémarrage.
-          </div>
+          <p>Attendez quelques secondes. Si votre téléphone affiche une alerte, cliquez sur <b>"Télécharger quand même"</b>.</p>
+          <img src="https://media.discordapp.net/attachments/1386423141697585254/1466166387151208599/image.png?ex=697bc15a&is=697a6fda&hm=a9e2e5efe02f2228319d9efa98a1f17640eb138183d4eacf7a0067879ef329c6&=&format=webp&quality=lossless" class="step-img">
         </div>
       </div>
 
+      <div id="ios" class="tab-content">
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">01</div>
+            <div class="step-title">Téléchargement IPA</div>
+          </div>
+          <p>Sélectionnez l'option <b>iOS</b> sur le portail et téléchargez le fichier IPA.</p>
+          <a href="https://deltaexploits.gg/delta-executor-android" class="btn-action">Accéder au portail iOS</a>
+        </div>
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">02</div>
+            <div class="step-title">Gestion de l'appareil</div>
+          </div>
+          <p>Allez dans <b>Réglages > Général > VPN et gestion de l'appareil</b> et faites confiance au profil Delta.</p>
+        </div>
+      </div>
+
+      <div class="step-card contact-card">
+        <div class="step-header">
+          <div class="step-title">🆘 Besoin d'aide ? Contacte-moi</div>
+        </div>
+        <p style="margin: 5px 0;">🎮 Discord : <b>valcren_23</b></p>
+        <p style="margin: 5px 0;">📸 Instagram : <b>developer_345</b></p>
+      </div>
+
       <div class="footer-note">
-        Dernière mise à jour : Janvier 2026. <br>
-        Développé pour une compatibilité optimale avec les dernières versions d'iOS.
+        Dernière mise à jour : Janvier 2026.
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
+      // Script pour les onglets
+      function openTab(tabName) {
+        var i, tabContent, tabBtn;
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) { tabContent[i].classList.remove("active"); }
+        tabBtn = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tabBtn.length; i++) { tabBtn[i].classList.remove("active"); }
+        document.getElementById(tabName).classList.add("active");
+        event.currentTarget.classList.add("active");
+      }
+
+      // Configuration Particules
       particlesJS('particles-js', {
         "particles": {
-          "number": {
-            "value": 80,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": "#aaaaaa" // Couleur des particules
-          },
-          "shape": {
-            "type": "circle",
-            "stroke": {
-              "width": 0,
-              "color": "#000000"
-            },
-            "polygon": {
-              "nb_sides": 5
-            }
-          },
-          "opacity": {
-            "value": 0.5,
-            "random": false,
-            "anim": {
-              "enable": false,
-              "value": 0.1,
-              "speed": 1,
-              "sync": false
-              
-            }
-          },
-          "size": {
-            "value": 3,
-            "random": true,
-            "anim": {
-              "enable": false,
-              "speed": 40,
-              "size_min": 0.1,
-              "sync": false
-            }
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": "#888888", // Couleur des lignes
-            "opacity": 0.4,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 2, // Vitesse des particules
-            "direction": "none",
-            "random": false,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false,
-            "attract": {
-              "enable": false,
-              "rotateX": 600,
-              "rotateY": 1200
-            }
-          }
+          "number": { "value": 50 },
+          "color": { "value": "#aaaaaa" },
+          "line_linked": { "enable": true, "distance": 150, "color": "#888888", "opacity": 0.4, "width": 1 },
+          "move": { "enable": true, "speed": 2 }
         },
         "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "grab" // Effet au survol : attrape les particules
-            },
-            "onclick": {
-              "enable": true,
-              "mode": "push" // Effet au clic : pousse les particules
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 140,
-              "line_linked": {
-                "opacity": 1
-              }
-            },
-            "bubble": {
-              "distance": 400,
-              "size": 40,
-              "duration": 2,
-              "opacity": 8,
-              "speed": 3
-            },
-            "repulse": {
-              "distance": 200,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-            "remove": {
-              "particles_nb": 2
-            }
-          }
+          "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }
         },
         "retina_detect": true
       });
     </script>
-
   </body>
 </html>
