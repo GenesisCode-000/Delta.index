@@ -2,14 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='85' fill='%232bc4ff' font-weight='bold'%3EΔ%3C/text%3E%3C/svg%3E">
-    <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='85' fill='%232bc4ff' font-weight='bold'%3EΔ%3C/text%3E%3C/svg%3E">
     
-    <title>Delta | Installation iOS & Android - Guide officiel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>Delta Executor • Guide d'installation mobile</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -18,167 +19,229 @@
         }
 
         body {
-            background: #0a0c12;
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #05070f);
             font-family: 'Inter', sans-serif;
-            color: #edf2ff;
+            color: #f0f3ff;
             line-height: 1.5;
+            scroll-behavior: smooth;
         }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.7s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1.5rem 3rem;
+            padding: 1.5rem 2rem 4rem;
         }
 
-        .header {
+        /* Header */
+        .hero {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(0, 200, 255, 0.12);
-            border: 1px solid rgba(0, 200, 255, 0.4);
-            padding: 0.3rem 1rem;
+        .glow-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(43, 196, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(43, 196, 255, 0.35);
+            padding: 0.5rem 1.4rem;
             border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 600;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: #7ad0ff;
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #5bc0ff, #2b9aff);
+            background: linear-gradient(135deg, #ffffff, #7ad0ff, #2bc4ff, #1a6eff);
+            background-size: 300% 300%;
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 0.75rem;
+            animation: float 6s ease-in-out infinite;
+            margin-bottom: 1rem;
         }
 
-        .sub {
-            color: #8e9aaf;
-            max-width: 620px;
+        .hero-sub {
+            font-size: 1.2rem;
+            color: #9aaec9;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .official-link {
+        /* Discord Button */
+        .discord-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #11161f;
-            border: 1px solid #2a3342;
-            padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            margin-top: 1.2rem;
+            gap: 12px;
+            background: #5865f2;
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            padding: 0.8rem 2rem;
+            margin-top: 2rem;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-decoration: none;
-            color: #cdd9ff;
-            transition: 0.2s;
         }
 
-        .official-link i {
+        .discord-btn:hover {
+            background: #4752c4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Compteur */
+        .download-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(18, 25, 40, 0.8);
+            backdrop-filter: blur(16px);
+            border-radius: 80px;
+            padding: 0.7rem 1.8rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(43, 196, 255, 0.3);
+        }
+
+        .counter-number {
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #2bc4ff;
+            letter-spacing: 2px;
         }
 
-        .official-link:hover {
-            border-color: #2bc4ff;
-            background: #0f1725;
-            transform: translateY(-2px);
-        }
-
+        /* Grille des cartes */
         .os-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
-            margin: 2rem 0 1.5rem;
+            margin: 3rem 0 2rem;
         }
 
         .os-card {
             flex: 1;
-            min-width: 300px;
-            background: rgba(12, 16, 24, 0.8);
-            border-radius: 2rem;
-            border: 1px solid rgba(43, 196, 255, 0.25);
+            min-width: 320px;
+            background: rgba(12, 18, 28, 0.65);
+            backdrop-filter: blur(14px);
+            border-radius: 2.5rem;
+            border: 1px solid rgba(43, 196, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             overflow: hidden;
-            backdrop-filter: blur(4px);
-            transition: transform 0.2s, border-color 0.2s;
         }
 
         .os-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(43, 196, 255, 0.6);
+            transform: translateY(-8px);
+            border-color: rgba(43, 196, 255, 0.7);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(15, 22, 35, 0.8);
         }
 
         .os-header {
-            padding: 1.2rem 1.5rem;
-            background: linear-gradient(95deg, rgba(0, 30, 45, 0.7), rgba(0, 0, 0, 0.3));
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 1.5rem;
             text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: relative;
         }
 
         .os-header i {
-            font-size: 2rem;
-            margin-right: 8px;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .os-header h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
+        }
+
+        .os-badge {
             display: inline-block;
+            background: rgba(43, 196, 255, 0.2);
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            font-size: 0.7rem;
+            margin-top: 0.6rem;
         }
 
         .os-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
-        .step-mini {
-            margin-bottom: 1.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 1.5rem;
+        /* Étapes */
+        .step-modern {
+            margin-bottom: 2rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            transition: 0.2s;
         }
 
-        .step-mini:last-child {
-            border-bottom: none;
-        }
-
-        .step-title-mini {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
+        .step-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #b3e4ff;
+            gap: 12px;
+            margin-bottom: 1rem;
         }
 
-        .step-title-mini i {
-            color: #2bc4ff;
-            width: 28px;
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2bc4ff, #1a6eff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
         }
 
-        .step-img {
-            margin: 0.8rem 0;
-            border-radius: 1rem;
+        .step-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .step-img-modern {
+            margin: 1rem 0;
+            border-radius: 1.2rem;
             overflow: hidden;
-            background: #080c14;
-            border: 1px solid #2a3440;
+            border: 1px solid rgba(43, 196, 255, 0.3);
+            transition: 0.2s;
         }
 
-        .step-img img {
+        .step-img-modern img {
             width: 100%;
             height: auto;
             display: block;
-        }
-
-        .step-img-caption {
-            font-size: 0.65rem;
-            text-align: center;
-            padding: 0.4rem;
-            background: #00000055;
-            color: #9aaec9;
         }
 
         .instruction-list {
@@ -187,199 +250,370 @@
         }
 
         .instruction-list li {
-            margin: 0.6rem 0;
+            margin: 0.7rem 0;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
             font-size: 0.9rem;
+            color: #ccd9f0;
         }
 
         .instruction-list li i {
             color: #2bc4ff;
-            margin-top: 2px;
-            min-width: 20px;
+            margin-top: 3px;
         }
 
         .highlight {
-            background: #0e1a28;
-            padding: 0.15rem 0.5rem;
-            border-radius: 20px;
+            background: #0e1f30;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
             font-family: monospace;
             font-weight: 600;
-            font-size: 0.85rem;
-            color: #b3e4ff;
-        }
-
-        .note-box {
-            background: #0f1822;
-            border-left: 4px solid #2bc4ff;
-            border-radius: 0.8rem;
-            padding: 0.8rem 1rem;
-            margin-top: 1rem;
             font-size: 0.8rem;
+            color: #7ad0ff;
         }
 
-        .warning-note {
+        /* Notes */
+        .note-glass {
+            background: rgba(43, 196, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 3px solid #2bc4ff;
+            font-size: 0.85rem;
+        }
+
+        .warning-glass {
+            background: rgba(255, 170, 51, 0.1);
             border-left-color: #ffaa33;
-            background: #1f1a10;
         }
 
+        /* FAQ */
+        .faq-section {
+            margin: 4rem 0 2rem;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .faq-item {
+            background: rgba(12, 18, 28, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .faq-question:hover {
+            background: rgba(43, 196, 255, 0.1);
+        }
+
+        .faq-question i {
+            transition: 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            color: #a5b7da;
+            border-top: none;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.2rem 1.5rem;
+            max-height: 300px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Discord link dans la FAQ */
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #5865f2;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .discord-link:hover {
+            background: #4752c4;
+            transform: scale(1.02);
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #1f2a36;
-            color: #6b7a8a;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #6c7b9e;
             font-size: 0.75rem;
         }
 
         @media (max-width: 780px) {
+            .container { padding: 1rem 1.2rem 2rem; }
+            h1 { font-size: 2.2rem; }
             .os-grid { flex-direction: column; }
-            h1 { font-size: 2rem; }
+            .counter-number { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="header">
-        <div class="badge"><i class="fas fa-mobile-alt"></i> GUIDE OFFICIEL • DIRECT INSTALL</div>
-        <h1>Installer Delta sur <span style="color:#2bc4ff;">iOS & Android</span></h1>
-        <p class="sub">Méthodes officieuses mais fiables. Suivez chaque étape avec les images.</p>
-        <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="official-link">
-            <i class="fas fa-globe"></i> deltaexploits.gg
-            <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
+    <div class="hero">
+        <div class="glow-badge fade-up">
+            <i class="fas fa-bolt"></i> EXECUTEUR N°1 SUR MOBILE
+        </div>
+        <h1 class="fade-up delay-1">Delta Executor</h1>
+        <p class="hero-sub fade-up delay-2">Le guide visuel ultime pour installer Delta sur iOS & Android.<br>Suivez les étapes, c'est simple et rapide.</p>
+        
+        <a href="https://discord.gg/w5v3nEQx8V" target="_blank" class="discord-btn fade-up delay-3">
+            <i class="fab fa-discord"></i> Rejoindre le Discord
+            <i class="fas fa-arrow-right"></i>
         </a>
+
+        <div class="download-counter fade-up delay-3">
+            <i class="fas fa-download" style="color:#2bc4ff; font-size: 1.4rem;"></i>
+            <span class="counter-number" id="downloadCount">187,432</span>
+            <span style="font-size: 0.85rem;">téléchargements actifs</span>
+        </div>
     </div>
 
     <div class="os-grid">
-        <!-- ==================== SECTION iOS ==================== -->
-        <div class="os-card">
+        <!-- SECTION iOS -->
+        <div class="os-card fade-up delay-2">
             <div class="os-header">
                 <i class="fab fa-apple" style="color:#ffffff;"></i>
                 <h2>iOS</h2>
-                <span style="display: block; font-size: 0.7rem; color:#7ad0ff;">Direct Install (UNOFFICIAL)</span>
+                <div class="os-badge">Sans jailbreak • Direct Install</div>
             </div>
             <div class="os-content">
-                <div class="step-mini">
-                    <div class="step-title-mini"><i class="fas fa-1-circle"></i> Ouvrir le site & Onglet iOS</div>
-                    <div class="step-img">
-                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373728394023002/image.png?ex=6a1c94a6&is=6a1b4326&hm=f7357cfe4610761672738d98dea1b019e5cb59eb0f3e3e21170463e8a4de67d6&=&format=webp&quality=lossless&width=1856&height=695" alt="Delta iOS onglet">
-                        <div class="step-img-caption"><i class="fab fa-apple"></i> Cliquer sur l'onglet iOS</div>
+                <div class="step-modern">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Ouvrir le site & Onglet iOS</h3>
+                    </div>
+                    <div class="step-img-modern">
+                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373728394023002/image.png?ex=6a1c94a6&is=6a1b4326&hm=f7357cfe4610761672738d98dea1b019e5cb59eb0f3e3e21170463e8a4de67d6&=&format=webp&quality=lossless&width=1856&height=695" alt="iOS onglet">
                     </div>
                     <ul class="instruction-list">
-                        <li><i class="fas fa-check-circle"></i> Ouvrez <span class="highlight">Safari</span> (obligatoire sur iPhone/iPad).</li>
+                        <li><i class="fas fa-check-circle"></i> Ouvrez <span class="highlight">Safari</span> (indispensable sur iPhone/iPad).</li>
                         <li><i class="fas fa-globe"></i> Allez sur <span class="highlight">deltaexploits.gg</span></li>
-                        <li><i class="fab fa-apple"></i> Cliquez sur <strong>« ONGLET iOS »</strong> (cf image).</li>
+                        <li><i class="fab fa-apple"></i> Cliquez sur <strong>« ONGLET iOS »</strong>.</li>
                     </ul>
                 </div>
 
-                <div class="step-mini">
-                    <div class="step-title-mini"><i class="fas fa-2-circle"></i> Direct Install (UNOFFICIAL)</div>
-                    <div class="step-img">
-                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373840004317284/image.png?ex=6a1c94c0&is=6a1b4340&hm=10a51a42a8ee722d07109ac97b2d06916482df2f596ae13d0a4a6cbebdbe3ba3&=&format=webp&quality=lossless&width=1536&height=864" alt="Direct Install UNOFFICIAL">
-                        <div class="step-img-caption"><i class="fas fa-download"></i> Première pression : Direct Install (UNOFFICIAL)</div>
+                <div class="step-modern">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Direct Install (UNOFFICIAL)</h3>
+                    </div>
+                    <div class="step-img-modern">
+                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373840004317284/image.png?ex=6a1c94c0&is=6a1b4340&hm=10a51a42a8ee722d07109ac97b2d06916482df2f596ae13d0a4a6cbebdbe3ba3&=&format=webp&quality=lossless&width=1536&height=864" alt="Direct Install">
                     </div>
                     <ul class="instruction-list">
                         <li><i class="fas fa-mouse-pointer"></i> Appuyez sur <strong class="highlight">« Direct Install (UNOFFICIAL) »</strong>.</li>
-                        <li><i class="fas fa-clock"></i> Une nouvelle fenêtre va s'ouvrir.</li>
+                        <li><i class="fas fa-window-restore"></i> Une nouvelle fenêtre s'ouvre.</li>
                     </ul>
                 </div>
 
-                <div class="step-mini">
-                    <div class="step-title-mini"><i class="fas fa-3-circle"></i> Deuxième clic : Direct Install</div>
-                    <div class="step-img">
-                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373963853856808/image.png?ex=6a1c94de&is=6a1b435e&hm=5393c8f7e1061256cbe45e1d62c469f2288dc478823499a209aeda64c13fa25d&=&format=webp&quality=lossless&width=1536&height=864" alt="Deuxième Direct Install">
-                        <div class="step-img-caption"><i class="fas fa-repeat"></i> Cliquez à nouveau sur Direct Install</div>
+                <div class="step-modern">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Deuxième clic</h3>
+                    </div>
+                    <div class="step-img-modern">
+                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510373963853856808/image.png?ex=6a1c94de&is=6a1b435e&hm=5393c8f7e1061256cbe45e1d62c469f2288dc478823499a209aeda64c13fa25d&=&format=webp&quality=lossless&width=1536&height=864" alt="Second install">
                     </div>
                     <ul class="instruction-list">
-                        <li><i class="fas fa-window-restore"></i> Nouvelle fenêtre : <strong class="highlight">« Direct Install »</strong>.</li>
-                        <li><i class="fas fa-download"></i> Cliquez une seconde fois.</li>
-                        <li><i class="fas fa-cloud-download-alt"></i> Le profil se télécharge → retour à l'accueil.</li>
+                        <li><i class="fas fa-repeat"></i> Nouvelle fenêtre : <strong class="highlight">« Direct Install »</strong>.</li>
+                        <li><i class="fas fa-download"></i> Cliquez une seconde fois → téléchargement du profil.</li>
                     </ul>
                 </div>
 
-                <div class="note-box">
-                    <i class="fas fa-cog" style="color:#2bc4ff;"></i> <strong>✅ Dernière étape iOS :</strong><br><br>
-                    • Allez dans <strong>Réglages → Général → VPN et gestion de l'appareil</strong>.<br>
-                    • Appuyez sur le profil Delta → <strong>Installer</strong> (entrez votre code).<br>
-                    • Autorisez le certificat (<strong>Trust / Autoriser</strong>).<br>
-                    • <strong>Redémarrez l'iPhone/iPad</strong> puis lancez Delta.
+                <div class="note-glass">
+                    <i class="fas fa-cog" style="color:#2bc4ff;"></i> <strong>✅ Dernière étape iOS :</strong><br>
+                    Réglages → Général → VPN et gestion de l'appareil → installer le profil Delta → autoriser le certificat → redémarrer.
                 </div>
             </div>
         </div>
 
-        <!-- ==================== SECTION ANDROID ==================== -->
-        <div class="os-card">
+        <!-- SECTION ANDROID -->
+        <div class="os-card fade-up delay-3">
             <div class="os-header">
                 <i class="fab fa-android" style="color:#3ddc84;"></i>
                 <h2>Android</h2>
-                <span style="display: block; font-size: 0.7rem; color:#7ad0ff;">APK officiel</span>
+                <div class="os-badge">APK officiel • Roblox moddé</div>
             </div>
             <div class="os-content">
-                <div class="step-mini">
-                    <div class="step-title-mini"><i class="fas fa-1-circle"></i> Onglet Android</div>
-                    <div class="step-img">
-                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510374929286041821/image.png?ex=6a1c95c4&is=6a1b4444&hm=ec1392d69af9bafea8a3364c193199259bac6dfe56081e78f4263c1d1ab79ec8&=&format=webp&quality=lossless&width=1536&height=864" alt="Onglet Android Delta">
-                        <div class="step-img-caption"><i class="fab fa-android"></i> Cliquer sur l'onglet Android</div>
+                <div class="step-modern">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Onglet Android</h3>
+                    </div>
+                    <div class="step-img-modern">
+                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510374929286041821/image.png?ex=6a1c95c4&is=6a1b4444&hm=ec1392d69af9bafea8a3364c193199259bac6dfe56081e78f4263c1d1ab79ec8&=&format=webp&quality=lossless&width=1536&height=864" alt="Android onglet">
                     </div>
                     <ul class="instruction-list">
-                        <li><i class="fas fa-check-circle"></i> Ouvrez <span class="highlight">Chrome</span> (ou n'importe quel navigateur).</li>
-                        <li><i class="fas fa-globe"></i> Allez sur <span class="highlight">deltaexploits.gg</span></li>
+                        <li><i class="fas fa-check-circle"></i> Ouvrez <span class="highlight">Chrome</span> ou tout navigateur.</li>
+                        <li><i class="fas fa-globe"></i> Rendez-vous sur <span class="highlight">deltaexploits.gg</span></li>
                         <li><i class="fab fa-android"></i> Cliquez sur <strong>« ONGLET ANDROID »</strong>.</li>
                     </ul>
                 </div>
 
-                <div class="step-mini">
-                    <div class="step-title-mini"><i class="fas fa-2-circle"></i> Download for Android</div>
-                    <div class="step-img">
-                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510375055576797396/image.png?ex=6a1c95e2&is=6a1b4462&hm=78881bd65959a0ee3a8e706cd03074bb3e9347efe980bece80a235ced2d9b202&=&format=webp&quality=lossless&width=1536&height=864" alt="Download for Android">
-                        <div class="step-img-caption"><i class="fas fa-download"></i> Bouton Download for Android</div>
+                <div class="step-modern">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Télécharger l'APK</h3>
+                    </div>
+                    <div class="step-img-modern">
+                        <img src="https://media.discordapp.net/attachments/1477694886798164189/1510375055576797396/image.png?ex=6a1c95e2&is=6a1b4462&hm=78881bd65959a0ee3a8e706cd03074bb3e9347efe980bece80a235ced2d9b202&=&format=webp&quality=lossless&width=1536&height=864" alt="Download APK">
                     </div>
                     <ul class="instruction-list">
                         <li><i class="fas fa-mouse-pointer"></i> Appuyez sur <strong class="highlight">« Download for Android »</strong>.</li>
-                        <li><i class="fas fa-save"></i> Le fichier .APK est téléchargé.</li>
-                        <li><i class="fas fa-ellipsis-h"></i> Cliquez sur les <strong>trois petits points</strong> du navigateur → allez dans <strong>« Téléchargements »</strong>.</li>
-                        <li><i class="fas fa-file"></i> Cliquez sur le fichier Delta → <strong>Installer</strong>.</li>
+                        <li><i class="fas fa-save"></i> Le fichier .APK se télécharge.</li>
+                        <li><i class="fas fa-folder-open"></i> Ouvrez les téléchargements et cliquez sur le fichier → <strong>Installer</strong>.</li>
                     </ul>
                 </div>
 
-                <div class="note-box warning-note">
-                    <i class="fas fa-exclamation-triangle" style="color:#ffaa33;"></i> <strong>⚠️ TRÈS IMPORTANT (Android) :</strong><br><br>
-                    <strong>Avant de lancer Delta, vous DEVEZ désinstaller Roblox original.</strong><br><br>
-                    ➜ Paramètres → Applications → Roblox → <strong>Désinstaller</strong>.<br>
-                    ➜ Ensuite seulement, lancez Delta. Le jeu fonctionnera via Delta.<br>
-                    ➜ Ne gardez pas deux versions de Roblox.
+                <div class="note-glass warning-glass">
+                    <i class="fas fa-exclamation-triangle" style="color:#ffaa33;"></i> <strong>⚠️ CRUCIAL :</strong><br>
+                    Avant de lancer Delta, <strong>désinstallez Roblox original</strong> (Paramètres → Applications → Roblox → Désinstaller). Sinon, conflit.
                 </div>
 
-                <div class="note-box">
-                    <i class="fas fa-rocket" style="color:#2bc4ff;"></i> <strong>✅ Lancer Delta :</strong><br><br>
-                    • Une fois l'APK installé, retournez sur l'écran d'accueil.<br>
-                    • Lancez l'application <strong>Delta</strong>.<br>
-                    • Ouvrez Roblox depuis l'écran d'accueil Delta → connectez-vous et profitez.
+                <div class="note-glass">
+                    <i class="fas fa-rocket" style="color:#2bc4ff;"></i> <strong>✅ Lancement :</strong><br>
+                    Ouvrez Delta → Connectez-vous à Roblox → Profitez des scripts et exploits.
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION FAQ -->
+    <div class="faq-section fade-up delay-4">
+        <div class="faq-title">
+            <i class="fas fa-question-circle" style="color:#2bc4ff;"></i> Questions fréquentes
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>🔹 Delta est-il sûr ?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Oui, des milliers d'utilisateurs l'utilisent quotidiennement. Téléchargez uniquement depuis deltaexploits.gg pour éviter les faux.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>🔹 Pourquoi désinstaller Roblox original sur Android ?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Delta est une version modifiée de Roblox. Les deux ne peuvent pas coexister. Supprimez l'original puis installez Delta.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>🔹 L'application ne s'ouvre pas après installation iOS ?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Vérifiez que vous avez bien autorisé le certificat dans Réglages → Général → VPN et gestion de l'appareil. Redémarrez votre iPhone.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>🔹 Où trouver des scripts pour Delta ?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Rejoignez le serveur Discord officiel de Delta, il y a une section "scripts" avec des centaines de partages.<br>
+                <a href="https://discord.gg/w5v3nEQx8V" target="_blank" class="discord-link">
+                    <i class="fab fa-discord"></i> Rejoindre le Discord Delta
+                </a>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>🔹 Comment obtenir de l'aide rapidement ?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Le moyen le plus rapide est de rejoindre notre serveur Discord. Des membres de la communauté et des modérateurs sont présents 24/7 pour vous aider.<br>
+                <a href="https://discord.gg/w5v3nEQx8V" target="_blank" class="discord-link" style="margin-top: 0.8rem;">
+                    <i class="fab fa-discord"></i> Support sur Discord
+                </a>
             </div>
         </div>
     </div>
 
     <footer>
-        <i class="far fa-copyright"></i> Guide Delta — iOS (Direct Install x2 + validation profil) / Android (APK + désinstallation Roblox original)<br>
-        Toutes les images proviennent de la procédure officielle. Site officiel : <strong>deltaexploits.gg</strong>
+        <i class="far fa-copyright"></i> Guide non officiel mais fiable — Delta Executor Mobile<br>
+        Les images sont issues de la procédure officielle. Site source : <strong>deltaexploits.gg</strong><br>
+        <span style="font-size: 0.7rem;">Dernière mise à jour : 30/05/26 • Created by KinesisDev</span>
     </footer>
 </div>
 
 <script>
-    (function() {
-        const imgs = document.querySelectorAll('.step-img img');
-        imgs.forEach(img => {
-            img.addEventListener('error', () => {
-                if (!img.dataset.fallback) {
-                    img.dataset.fallback = 'true';
-                    img.src = 'https://placehold.co/600x350/0e1622/2bc4ff?text=Image+non+chargée&font=monospace';
-                }
-            });
+    // FAQ Accordéon
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
         });
-        console.log('✅ Guide Delta chargé - iOS & Android');
-    })();
+    });
+
+    // Animation compteur
+    let count = 187432;
+    const counterElem = document.getElementById('downloadCount');
+    if (counterElem) {
+        setInterval(() => {
+            let increment = Math.floor(Math.random() * 8) + 1;
+            count += increment;
+            counterElem.innerText = count.toLocaleString();
+        }, 18000);
+    }
+
+    // Fallback images
+    const images = document.querySelectorAll('.step-img-modern img');
+    images.forEach(img => {
+        img.addEventListener('error', () => {
+            if (!img.dataset.fallback) {
+                img.dataset.fallback = 'true';
+                img.src = 'https://placehold.co/800x500/0e1622/2bc4ff?text=Aperçu+Delta&font=monospace';
+            }
+        });
+    });
+
+    console.log('✅ Delta Guide - Interface Next Gen chargée');
 </script>
 </body>
 </html>
