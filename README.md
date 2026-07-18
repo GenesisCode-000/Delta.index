@@ -22,31 +22,12 @@ text
 - **android-step1.png** - Browser open on deltaexploits.gg, Android tab selected
 - **android-step2.png** - Download page with the countdown timer before APK download
 
-## How to Deploy on GitHub Pages
-
-1. Create a new repository on GitHub
-2. Upload all files including the `/images` folder
-3. Go to **Settings > Pages**
-4. Under "Source", select **main branch**
-5. Click **Save**
-6. Done. Your site is live.
-
-Quick commands:
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
-git push -u origin main
-
-text
-
 ## Disclaimer
 
 Unofficial guide. Not affiliated with Roblox or Delta Executor. Use at your own risk. Always download from deltaexploits.gg.
 
 ## Credits
 
-- Made by fgh567
+- Made by KinesisDev
 - Official site: deltaexploits.gg
 - Discord: [discord.gg/w5v3nEQx8V](https://discord.gg/hgTgQ6CqaY)
